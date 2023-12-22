@@ -4,9 +4,19 @@ import { NavLink } from 'react-router-dom';
 import logo from "../images/logo.png"
 
 const Login = () => {
-  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const takeCredential =(e)=>{
+    setEmail(e.target.value)
+    setPassword(e.target.value)
+  }
+  console.log(email)
+  console.log(password)
+  const payload={
+    email , 
+    password
+  }
+  console.log(payload)
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -15,7 +25,7 @@ const Login = () => {
           headers: {
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ emailOrPhone, password }),
+          body: JSON.stringify(payload),
       });
       if (response.ok) {
           // Login successful
@@ -52,12 +62,12 @@ const Login = () => {
             <div className="form-group">
               <label htmlFor="formIdentifier">Email or Mobile Number</label>
               <br></br>
-              <input type="text" className="form-control" id="formIdentifier" placeholder="Enter email or mobile number" required />
+              <input type="text" className="form-control" id="formIdentifier" placeholder="Enter email or mobile number" required onChange={takeCredential}/>
             </div>
 
             <div className="form-group">
               <label htmlFor="formPassword">Password</label>
-              <input type="password" className="form-control" id="formPassword" placeholder="Enter password" required />
+              <input type="password" className="form-control" id="formPassword" placeholder="Enter password" required onChange={takeCredential}/>
             </div>
             <br></br>
             <button type="submit" className="btn btn-primary btn-block">Login</button>
